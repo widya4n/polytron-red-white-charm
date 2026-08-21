@@ -65,8 +65,7 @@ export function AppShell({
             <img
               src={polytron.url}
               alt="Polytron"
-              className="hidden h-4 w-auto brightness-0 invert-0 md:block"
-              style={{ filter: "none" }}
+              className="hidden h-4 w-auto md:block"
             />
             <div className="flex items-center gap-2 border-l border-ink-foreground/15 pl-3">
               <span className="grid h-8 w-8 place-items-center bg-primary font-display text-xs font-bold text-primary-foreground">
