@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as IncomingRouteImport } from './routes/incoming'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as OutgoingRouteImport } from './routes/outgoing'
+import { Route as SuppliersRouteImport } from './routes/suppliers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const OutgoingRoute = OutgoingRouteImport.update({
   path: '/outgoing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SuppliersRoute = SuppliersRouteImport.update({
+  id: '/suppliers',
+  path: '/suppliers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
   '/outgoing': typeof OutgoingRoute
+  '/suppliers': typeof SuppliersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
   '/outgoing': typeof OutgoingRoute
+  '/suppliers': typeof SuppliersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
   '/outgoing': typeof OutgoingRoute
+  '/suppliers': typeof SuppliersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/incoming' | '/login' | '/outgoing'
+  fullPaths: '/' | '/incoming' | '/login' | '/outgoing' | '/suppliers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/incoming' | '/login' | '/outgoing'
-  id: '__root__' | '/' | '/incoming' | '/login' | '/outgoing'
+  to: '/' | '/incoming' | '/login' | '/outgoing' | '/suppliers'
+  id: '__root__' | '/' | '/incoming' | '/login' | '/outgoing' | '/suppliers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   IncomingRoute: typeof IncomingRoute
   LoginRoute: typeof LoginRoute
   OutgoingRoute: typeof OutgoingRoute
+  SuppliersRoute: typeof SuppliersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OutgoingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/suppliers': {
+      id: '/suppliers'
+      path: '/suppliers'
+      fullPath: '/suppliers'
+      preLoaderRoute: typeof SuppliersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   IncomingRoute: IncomingRoute,
   LoginRoute: LoginRoute,
   OutgoingRoute: OutgoingRoute,
+  SuppliersRoute: SuppliersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
