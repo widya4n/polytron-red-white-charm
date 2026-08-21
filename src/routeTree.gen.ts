@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuditRouteImport } from './routes/audit'
+import { Route as BarcodeRouteImport } from './routes/barcode'
+import { Route as IncomingRouteImport } from './routes/incoming'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as OutgoingRouteImport } from './routes/outgoing'
+import { Route as PackagingRouteImport } from './routes/packaging'
+import { Route as SuppliersRouteImport } from './routes/suppliers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuditRoute = AuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BarcodeRoute = BarcodeRouteImport.update({
+  id: '/barcode',
+  path: '/barcode',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IncomingRoute = IncomingRouteImport.update({
+  id: '/incoming',
+  path: '/incoming',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OutgoingRoute = OutgoingRouteImport.update({
+  id: '/outgoing',
+  path: '/outgoing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PackagingRoute = PackagingRouteImport.update({
+  id: '/packaging',
+  path: '/packaging',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuppliersRoute = SuppliersRouteImport.update({
+  id: '/suppliers',
+  path: '/suppliers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/audit': typeof AuditRoute
+  '/barcode': typeof BarcodeRoute
+  '/incoming': typeof IncomingRoute
+  '/login': typeof LoginRoute
+  '/outgoing': typeof OutgoingRoute
+  '/packaging': typeof PackagingRoute
+  '/suppliers': typeof SuppliersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/audit': typeof AuditRoute
+  '/barcode': typeof BarcodeRoute
+  '/incoming': typeof IncomingRoute
+  '/login': typeof LoginRoute
+  '/outgoing': typeof OutgoingRoute
+  '/packaging': typeof PackagingRoute
+  '/suppliers': typeof SuppliersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/audit': typeof AuditRoute
+  '/barcode': typeof BarcodeRoute
+  '/incoming': typeof IncomingRoute
+  '/login': typeof LoginRoute
+  '/outgoing': typeof OutgoingRoute
+  '/packaging': typeof PackagingRoute
+  '/suppliers': typeof SuppliersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/audit'
+    | '/barcode'
+    | '/incoming'
+    | '/login'
+    | '/outgoing'
+    | '/packaging'
+    | '/suppliers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/audit'
+    | '/barcode'
+    | '/incoming'
+    | '/login'
+    | '/outgoing'
+    | '/packaging'
+    | '/suppliers'
+  id:
+    | '__root__'
+    | '/'
+    | '/audit'
+    | '/barcode'
+    | '/incoming'
+    | '/login'
+    | '/outgoing'
+    | '/packaging'
+    | '/suppliers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuditRoute: typeof AuditRoute
+  BarcodeRoute: typeof BarcodeRoute
+  IncomingRoute: typeof IncomingRoute
+  LoginRoute: typeof LoginRoute
+  OutgoingRoute: typeof OutgoingRoute
+  PackagingRoute: typeof PackagingRoute
+  SuppliersRoute: typeof SuppliersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/audit': {
+      id: '/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/barcode': {
+      id: '/barcode'
+      path: '/barcode'
+      fullPath: '/barcode'
+      preLoaderRoute: typeof BarcodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/incoming': {
+      id: '/incoming'
+      path: '/incoming'
+      fullPath: '/incoming'
+      preLoaderRoute: typeof IncomingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/outgoing': {
+      id: '/outgoing'
+      path: '/outgoing'
+      fullPath: '/outgoing'
+      preLoaderRoute: typeof OutgoingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/packaging': {
+      id: '/packaging'
+      path: '/packaging'
+      fullPath: '/packaging'
+      preLoaderRoute: typeof PackagingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/suppliers': {
+      id: '/suppliers'
+      path: '/suppliers'
+      fullPath: '/suppliers'
+      preLoaderRoute: typeof SuppliersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuditRoute: AuditRoute,
+  BarcodeRoute: BarcodeRoute,
+  IncomingRoute: IncomingRoute,
+  LoginRoute: LoginRoute,
+  OutgoingRoute: OutgoingRoute,
+  PackagingRoute: PackagingRoute,
+  SuppliersRoute: SuppliersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
