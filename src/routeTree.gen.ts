@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IncomingRouteImport } from './routes/incoming'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as OutgoingRouteImport } from './routes/outgoing'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OutgoingRoute = OutgoingRouteImport.update({
+  id: '/outgoing',
+  path: '/outgoing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
+  '/outgoing': typeof OutgoingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
+  '/outgoing': typeof OutgoingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
+  '/outgoing': typeof OutgoingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/incoming' | '/login'
+  fullPaths: '/' | '/incoming' | '/login' | '/outgoing'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/incoming' | '/login'
-  id: '__root__' | '/' | '/incoming' | '/login'
+  to: '/' | '/incoming' | '/login' | '/outgoing'
+  id: '__root__' | '/' | '/incoming' | '/login' | '/outgoing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   IncomingRoute: typeof IncomingRoute
   LoginRoute: typeof LoginRoute
+  OutgoingRoute: typeof OutgoingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/outgoing': {
+      id: '/outgoing'
+      path: '/outgoing'
+      fullPath: '/outgoing'
+      preLoaderRoute: typeof OutgoingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   IncomingRoute: IncomingRoute,
   LoginRoute: LoginRoute,
+  OutgoingRoute: OutgoingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
