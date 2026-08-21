@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as IncomingRouteImport } from './routes/incoming'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as OutgoingRouteImport } from './routes/outgoing'
+import { Route as PackagingRouteImport } from './routes/packaging'
 import { Route as SuppliersRouteImport } from './routes/suppliers'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const OutgoingRoute = OutgoingRouteImport.update({
   path: '/outgoing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PackagingRoute = PackagingRouteImport.update({
+  id: '/packaging',
+  path: '/packaging',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SuppliersRoute = SuppliersRouteImport.update({
   id: '/suppliers',
   path: '/suppliers',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
   '/outgoing': typeof OutgoingRoute
+  '/packaging': typeof PackagingRoute
   '/suppliers': typeof SuppliersRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
   '/outgoing': typeof OutgoingRoute
+  '/packaging': typeof PackagingRoute
   '/suppliers': typeof SuppliersRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,23 @@ export interface FileRoutesById {
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
   '/outgoing': typeof OutgoingRoute
+  '/packaging': typeof PackagingRoute
   '/suppliers': typeof SuppliersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/incoming' | '/login' | '/outgoing' | '/suppliers'
+  fullPaths:
+    '/' | '/incoming' | '/login' | '/outgoing' | '/packaging' | '/suppliers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/incoming' | '/login' | '/outgoing' | '/suppliers'
-  id: '__root__' | '/' | '/incoming' | '/login' | '/outgoing' | '/suppliers'
+  to: '/' | '/incoming' | '/login' | '/outgoing' | '/packaging' | '/suppliers'
+  id:
+    | '__root__'
+    | '/'
+    | '/incoming'
+    | '/login'
+    | '/outgoing'
+    | '/packaging'
+    | '/suppliers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +93,7 @@ export interface RootRouteChildren {
   IncomingRoute: typeof IncomingRoute
   LoginRoute: typeof LoginRoute
   OutgoingRoute: typeof OutgoingRoute
+  PackagingRoute: typeof PackagingRoute
   SuppliersRoute: typeof SuppliersRoute
 }
 
@@ -109,6 +127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OutgoingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/packaging': {
+      id: '/packaging'
+      path: '/packaging'
+      fullPath: '/packaging'
+      preLoaderRoute: typeof PackagingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/suppliers': {
       id: '/suppliers'
       path: '/suppliers'
@@ -124,6 +149,7 @@ const rootRouteChildren: RootRouteChildren = {
   IncomingRoute: IncomingRoute,
   LoginRoute: LoginRoute,
   OutgoingRoute: OutgoingRoute,
+  PackagingRoute: PackagingRoute,
   SuppliersRoute: SuppliersRoute,
 }
 export const routeTree = rootRouteImport
