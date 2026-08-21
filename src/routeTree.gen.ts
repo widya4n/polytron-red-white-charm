@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BarcodeRouteImport } from './routes/barcode'
 import { Route as IncomingRouteImport } from './routes/incoming'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as OutgoingRouteImport } from './routes/outgoing'
@@ -19,6 +20,11 @@ import { Route as SuppliersRouteImport } from './routes/suppliers'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BarcodeRoute = BarcodeRouteImport.update({
+  id: '/barcode',
+  path: '/barcode',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IncomingRoute = IncomingRouteImport.update({
@@ -49,6 +55,7 @@ const SuppliersRoute = SuppliersRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/barcode': typeof BarcodeRoute
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
   '/outgoing': typeof OutgoingRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/barcode': typeof BarcodeRoute
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
   '/outgoing': typeof OutgoingRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/barcode': typeof BarcodeRoute
   '/incoming': typeof IncomingRoute
   '/login': typeof LoginRoute
   '/outgoing': typeof OutgoingRoute
@@ -75,12 +84,26 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/incoming' | '/login' | '/outgoing' | '/packaging' | '/suppliers'
+    | '/'
+    | '/barcode'
+    | '/incoming'
+    | '/login'
+    | '/outgoing'
+    | '/packaging'
+    | '/suppliers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/incoming' | '/login' | '/outgoing' | '/packaging' | '/suppliers'
+  to:
+    | '/'
+    | '/barcode'
+    | '/incoming'
+    | '/login'
+    | '/outgoing'
+    | '/packaging'
+    | '/suppliers'
   id:
     | '__root__'
     | '/'
+    | '/barcode'
     | '/incoming'
     | '/login'
     | '/outgoing'
@@ -90,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BarcodeRoute: typeof BarcodeRoute
   IncomingRoute: typeof IncomingRoute
   LoginRoute: typeof LoginRoute
   OutgoingRoute: typeof OutgoingRoute
@@ -104,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/barcode': {
+      id: '/barcode'
+      path: '/barcode'
+      fullPath: '/barcode'
+      preLoaderRoute: typeof BarcodeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/incoming': {
@@ -146,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BarcodeRoute: BarcodeRoute,
   IncomingRoute: IncomingRoute,
   LoginRoute: LoginRoute,
   OutgoingRoute: OutgoingRoute,
